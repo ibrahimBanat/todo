@@ -51,6 +51,12 @@ class TodoForm extends React.Component {
               placeholder='Assigned To'
               onChange={this.handleInputChange}
             />
+            <input
+              type='date'
+              name='date'
+              placeholder='Date'
+              onChange={this.handleInputChange}
+            />
           </label>
           <button>Add Item</button>
         </form>

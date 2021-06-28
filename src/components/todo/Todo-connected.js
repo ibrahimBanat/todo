@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import TodoForm from './Form.js';
 import TodoList from './List.js';
 
 import useAxios from './hooks/useAxios';
 import '../design/Todo.scss';
 
-const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
-
 const ToDo = () => {
   // const [list, setList] = useState([]);
 
   const [list, _getTodoItems, _toggleComplete, _addItem, _deleteComplete] =
     useAxios();
-
+  console.log(_getTodoItems);
   return (
     <>
       <header>

@@ -1,24 +1,9 @@
-import React, { useState } from 'react';
-import { ListGroup, Button, Form } from 'react-bootstrap';
+import React from 'react';
+import { ListGroup } from 'react-bootstrap';
 import { If, Else } from './IF';
 import Card from './Card';
 
 const List = props => {
-  const [id, setId] = useState('');
-  const [flag, setFlag] = useState(false);
-
-  const toggle = id => {
-    setFlag(!flag);
-    setId(id);
-    // props.updateState(id);
-  };
-  const editor = e => {
-    e.preventDefault();
-    toggle(id);
-    let newUpdate = e.target.text.value;
-    props.editor(id);
-  };
-
   return (
     <ListGroup>
       {props.list.map(

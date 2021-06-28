@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import TodoForm from './Form';
 import TodoList from './List';
+import useAxios from './hooks/useAxios';
 
 import '../design/Todo.scss';
 import Header from './Header';
 
 const Todo = props => {
+  const [list1, _getTodoItems, _toggleComplete, _addItem, _deleteComplete] =
+    useAxios();
   const [list, setList] = useState([]);
   const [count, setCount] = useState();
   console.log(list);
+
   const addItem = item => {
-    item._id = Math.random();
-    item.complete = false;
-    setList([...list, item]);
+    // item._id = Math.random();
+    // item.complete = false;
+    _addItem(item);
+    // setList([...list, item]);
+    console.log(list1[-1]);
   };
   const toggleComplete = id => {
     let item = list.filter(i => i._id === id)[0] || {};
@@ -115,8 +121,8 @@ const Todo = props => {
             <TodoList
               list={list}
               handleComplete={toggleComplete}
-              deleteH={deleteH}
-              editor={editor}
+              deleteH={_deleteComplete}
+              editor={_toggleComplete}
               updateState={updateState}
             />
           </div>

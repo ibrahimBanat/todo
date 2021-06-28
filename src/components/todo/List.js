@@ -1,29 +1,47 @@
-import React, { useState } from 'react';
-import { ListGroup, Button, Form } from 'react-bootstrap';
+import React from 'react';
+import { ListGroup } from 'react-bootstrap';
 import { If, Else } from './IF';
+import Card from './Card';
 
 const List = props => {
-  const [id, setId] = useState('');
-  const [flag, setFlag] = useState(false);
-
-  const toggle = id => {
-    setFlag(!flag);
-    setId(id);
-    props.updateState(id);
-  };
-  const editor = e => {
-    e.preventDefault();
-    toggle(id);
-    let newUpdate = e.target.text.value;
-    props.editor(newUpdate, id);
-  };
-
   return (
     <ListGroup>
       {props.list.map(
         item => (
           <>
             <If condition={item.complete}>
+              <Card
+                color={'success'}
+                asignee={item.assignee}
+                title={item.text}
+                diff={item.difficulty}
+                key={item._id}
+                callDelete={() => {
+                  props.deleteH(item._id);
+                }}
+                callToggle={() => {
+                  props.handleComplete(item._id);
+                }}
+                badge={'Completed'}
+              />
+            </If>
+            <Else condition={item.complete}>
+              <Card
+                color={'danger'}
+                asignee={item.assignee}
+                title={item.text}
+                diff={item.difficulty}
+                key={item._id}
+                callDelete={() => {
+                  props.deleteH(item._id);
+                }}
+                callToggle={() => {
+                  props.handleComplete(item._id);
+                }}
+                badge={'In Progress'}
+              />
+            </Else>
+            {/* <If condition={item.complete}>
               <Button
                 variant='outline-danger'
                 onClick={() => props.deleteH(item._id)}
@@ -99,7 +117,7 @@ const List = props => {
                   </Button>
                 </Form>
               </If>
-            </Else>
+            </Else> */}
           </>
         )
 

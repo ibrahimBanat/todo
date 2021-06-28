@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ListGroup, Button, Form } from 'react-bootstrap';
 import { If, Else } from './IF';
+import Card from './Card';
 
 const List = props => {
   const [id, setId] = useState('');
@@ -9,13 +10,13 @@ const List = props => {
   const toggle = id => {
     setFlag(!flag);
     setId(id);
-    props.updateState(id);
+    // props.updateState(id);
   };
   const editor = e => {
     e.preventDefault();
     toggle(id);
     let newUpdate = e.target.text.value;
-    props.editor(newUpdate, id);
+    props.editor(id);
   };
 
   return (
@@ -24,6 +25,12 @@ const List = props => {
         item => (
           <>
             <If condition={item.complete}>
+              <Card color={'danger'} />
+            </If>
+            <Else condition={item.complete}>
+              <Card color={'success'} asignee={item.asignee} />
+            </Else>
+            {/* <If condition={item.complete}>
               <Button
                 variant='outline-danger'
                 onClick={() => props.deleteH(item._id)}
@@ -99,7 +106,7 @@ const List = props => {
                   </Button>
                 </Form>
               </If>
-            </Else>
+            </Else> */}
           </>
         )
 

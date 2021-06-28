@@ -32,7 +32,7 @@ const useAxios = () => {
 
       axios({
         method: 'put',
-        url: todoAPI,
+        url: url,
         mode: 'cors',
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json' },
@@ -61,8 +61,19 @@ const useAxios = () => {
       .catch(console.error);
   };
 
+  const _deleteItem = id => {
+    let url = `${todoAPI}/${id}`;
+    axios({
+      method: 'DELETE',
+      mode: 'cors',
+      url: url,
+      cache: 'no-cache',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  };
+
   useEffect(_getTodoItems, []);
-  return [_addItem, _toggleComplete, _getTodoItems];
+  return [list, _getTodoItems, _toggleComplete, _addItem, , _deleteItem];
 };
 
 export default useAxios;

@@ -19,5 +19,6 @@ The application will be created with the following overall architecture and meth
 
 ## phase-1
 
-    - UML:
-    ![](./public/todo-p1.png)
+- UML:
+    
+![](./public/todo-p1.png)

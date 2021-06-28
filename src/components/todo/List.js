@@ -25,10 +25,36 @@ const List = props => {
         item => (
           <>
             <If condition={item.complete}>
-              <Card color={'danger'} />
+              <Card
+                color={'success'}
+                asignee={item.assignee}
+                title={item.text}
+                diff={item.difficulty}
+                key={item._id}
+                callDelete={() => {
+                  props.deleteH(item._id);
+                }}
+                callToggle={() => {
+                  props.handleComplete(item._id);
+                }}
+                badge={'Completed'}
+              />
             </If>
             <Else condition={item.complete}>
-              <Card color={'success'} asignee={item.asignee} />
+              <Card
+                color={'danger'}
+                asignee={item.assignee}
+                title={item.text}
+                diff={item.difficulty}
+                key={item._id}
+                callDelete={() => {
+                  props.deleteH(item._id);
+                }}
+                callToggle={() => {
+                  props.handleComplete(item._id);
+                }}
+                badge={'In Progress'}
+              />
             </Else>
             {/* <If condition={item.complete}>
               <Button

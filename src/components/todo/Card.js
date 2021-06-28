@@ -26,14 +26,14 @@ const Card = props => {
             gap: '20px',
           }}
         >
-          <Badge variant={props.color} pill>
-            Completed
+          <Badge variant={props.color} pill onClick={props.callToggle}>
+            {props.badge}
           </Badge>
           <span style={{ color: 'rgba(0,0,0,0.45)', fontWeight: '700' }}>
             {props.asignee}
           </span>
         </div>
-        <CloseButton />
+        <CloseButton onClick={props.callDelete} />
       </BootStrapCard.Header>
       <BootStrapCard.Body style={{ display: 'flex', flexDirection: 'column' }}>
         <BootStrapCard.Title>{props.title}</BootStrapCard.Title>

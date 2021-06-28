@@ -26,6 +26,23 @@ const Todo = props => {
       setList(list2);
     }
   };
+  const editor = (text, id) => {
+    let item = list.filter(item => item._id === id)[0] || {};
+    if (item) {
+      item.text = text;
+      let list5 = list.map(itm => {
+        if (itm._id === id) {
+          return item;
+        } else {
+          return itm;
+        }
+      });
+      setList(list5);
+    }
+  };
+  const updateState = id => {
+    setCount(list.filter(item => !item.complete).length);
+  };
 
   useEffect(() => {
     let list = [
@@ -72,6 +89,14 @@ const Todo = props => {
   useEffect(() => {
     document.title = `To Do List: ${count}`;
   }, [count]);
+  const deleteH = id => {
+    let list4 = list.filter(item => item._id !== id) || {};
+    console.log('deleted', list4);
+    setList(list4);
+    console.log(list.filter(item => !item.complete !== false).length);
+    setCount(list4.filter(item => !item.complete).length);
+  };
+
   return (
     <React.Fragment>
       <Header color={'primary'} text={'Home'} />
@@ -87,7 +112,13 @@ const Todo = props => {
           </div>
 
           <div>
-            <TodoList list={list} handleComplete={toggleComplete} />
+            <TodoList
+              list={list}
+              handleComplete={toggleComplete}
+              deleteH={deleteH}
+              editor={editor}
+              updateState={updateState}
+            />
           </div>
         </div>
       </section>

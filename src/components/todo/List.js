@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Button, Form } from 'react-bootstrap';
 import { If, Else } from './IF';
 
 const List = props => {
-  const [clicked, setClicked] = useState();
+  const [id, setId] = useState('');
+  const [flag, setFlag] = useState(false);
+
+  const toggle = id => {
+    setFlag(!flag);
+    setId(id);
+    props.updateState(id);
+  };
+  const editor = e => {
+    e.preventDefault();
+    toggle(id);
+    let newUpdate = e.target.text.value;
+    props.editor(newUpdate, id);
+  };
 
   return (
     <ListGroup>
@@ -11,6 +24,20 @@ const List = props => {
         item => (
           <>
             <If condition={item.complete}>
+              <Button
+                variant='outline-danger'
+                onClick={() => props.deleteH(item._id)}
+                value={item._id}
+              >
+                Delete
+              </Button>
+              <Button
+                variant='outline-secondary'
+                onClick={() => toggle(item._id)}
+                value={item._id}
+              >
+                Edit
+              </Button>{' '}
               <ListGroup.Item
                 action
                 variant='danger'
@@ -24,9 +51,34 @@ const List = props => {
                 {item.text}, 'difficulty:'{item.difficulty}, 'assignee:'
                 {item.assignee}
               </ListGroup.Item>
+              <If condition={flag}>
+                <Form onSubmit={editor}>
+                  <Form.Label>
+                    <span>Edit Task</span>
+                    <Form.Control type='text' name='text' />
+                  </Form.Label>
+                  <Button variant='outline-secondary' type='submit'>
+                    Submit Edit
+                  </Button>
+                </Form>
+              </If>
             </If>
 
             <Else condition={item.complete}>
+              <Button
+                variant='outline-danger'
+                onClick={() => props.deleteH(item._id)}
+                value={item._id}
+              >
+                Delete
+              </Button>
+              <Button
+                variant='outline-secondary'
+                onClick={() => toggle(item._id)}
+                value={item._id}
+              >
+                Edit
+              </Button>{' '}
               <ListGroup.Item
                 action
                 variant='success'
@@ -36,6 +88,17 @@ const List = props => {
               >
                 {`${item.text}, difficulty:${item.difficulty}, assignee:${item.assignee}`}
               </ListGroup.Item>
+              <If condition={flag}>
+                <Form onSubmit={editor}>
+                  <Form.Label>
+                    <span>Edit Task</span>
+                    <Form.Control type='text' name='text' />
+                  </Form.Label>
+                  <Button variant='outline-secondary' type='submit'>
+                    Submit Edit
+                  </Button>
+                </Form>
+              </If>
             </Else>
           </>
         )

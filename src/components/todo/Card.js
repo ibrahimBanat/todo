@@ -26,7 +26,12 @@ const Card = props => {
             gap: '20px',
           }}
         >
-          <Badge variant={props.color} pill onClick={props.callToggle}>
+          <Badge
+            variant={props.color}
+            pill
+            onClick={props.callToggle}
+            style={{ cursor: 'pointer' }}
+          >
             {props.badge}
           </Badge>
           <span style={{ color: 'rgba(0,0,0,0.45)', fontWeight: '700' }}>

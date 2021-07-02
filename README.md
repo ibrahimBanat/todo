@@ -29,6 +29,8 @@ The application will be created with the following overall architecture and meth
 
 ## Phase 3: Settings and Global Context
 
+- Implement user settings for displaying items
+
 - UML:
 
 ![](./public/todo-p1.png)

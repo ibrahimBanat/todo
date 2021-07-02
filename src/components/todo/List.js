@@ -1,25 +1,38 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Button } from 'react-bootstrap';
 import { If, Else } from './IF';
 import Card from './Card';
-import SettingContext from './context/setting-context';
+import { SettingContext } from './context/setting-context';
 
 const List = props => {
   const settingContext = useContext(SettingContext);
   const [index, setIndex] = useState(0);
-  const [stopIndex, setStopIndex] = useState(SettingContext.itemPage);
+  const [stopIndex, setStopIndex] = useState(settingContext.itemPage);
   let length = props.list.length;
 
-  useEffect(() => {
-    setStopIndex(index + SettingContext.itemPage);
-  }, [SettingContext.itemPage, index]);
+  const nextPage = () => {
+    if (stopIndex < length) {
+      setIndex(index + settingContext.itemPage);
+      setStopIndex(stopIndex + settingContext.itemPage);
+    }
+  };
+  const prevPage = () => {
+    if (index > 0) {
+      setIndex(index - settingContext.itemPage);
+      setStopIndex(stopIndex - settingContext.itemPage);
+    }
+  };
+  console.log(settingContext.itemPage);
+  // useEffect(() => {
+  //   setStopIndex(index + SettingContext.itemPage);
+  // }, [index]);
   return (
     <ListGroup>
       {props.list
-        .filter(item => (SettingContext.completed ? true : !item.complete))
+        .filter(item => (settingContext.completed ? true : !item.complete))
         .sort((a, b) => {
           let x;
-          SettingContext.difficulty === 'Ascending' ? (x = -1) : (x = 1);
+          settingContext.difficulty === 'Ascending' ? (x = -1) : (x = 1);
           if (a.difficulty > b.difficulty) {
             return x;
           }
@@ -66,6 +79,10 @@ const List = props => {
             </Else>
           </>
         ))}
+      <div className='buttons'>
+        <Button onClick={prevPage}> Previous </Button>
+        <Button onClick={nextPage}> Next </Button>
+      </div>
     </ListGroup>
   );
 };

@@ -17,8 +17,18 @@ The application will be created with the following overall architecture and meth
 - Superagent or Axios for performing API Requests
 - React Bootstrap for styling
 
-## phase-1
+## Phase 1: Application Setup
+
+- Basic To Do List Management, using Hooks
+
+## Phase 2: Persistence
+
+- Implement a custom Form Hook
+- Implement a custom Ajax Hook
+- Connect to a live API for storing To Do Items
+
+## Phase 3: Settings and Global Context
 
 - UML:
-    
+
 ![](./public/todo-p1.png)

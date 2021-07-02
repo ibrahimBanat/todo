@@ -22,17 +22,14 @@ const List = props => {
       setStopIndex(stopIndex - settingContext.itemPage);
     }
   };
-  console.log(settingContext.itemPage);
-  // useEffect(() => {
-  //   setStopIndex(index + SettingContext.itemPage);
-  // }, [index]);
+
   return (
     <ListGroup>
       {props.list
         .filter(item => (settingContext.completed ? true : !item.complete))
         .sort((a, b) => {
           let x;
-          settingContext.difficulty === 'Ascending' ? (x = -1) : (x = 1);
+          settingContext.difficulty === 'Ascending' ? (x = 1) : (x = -1);
           if (a.difficulty > b.difficulty) {
             return x;
           }

@@ -30,127 +30,42 @@ const List = props => {
           }
         })
         .slice(index, stopIndex)
-        .map(
-          item => (
-            <>
-              <If condition={item.complete}>
-                <Card
-                  color={'success'}
-                  asignee={item.assignee}
-                  title={item.text}
-                  diff={item.difficulty}
-                  key={item._id}
-                  callDelete={() => {
-                    props.deleteH(item._id);
-                  }}
-                  callToggle={() => {
-                    props.handleComplete(item._id);
-                  }}
-                  badge={'Completed'}
-                />
-              </If>
-              <Else condition={item.complete}>
-                <Card
-                  color={'danger'}
-                  asignee={item.assignee}
-                  title={item.text}
-                  diff={item.difficulty}
-                  key={item._id}
-                  callDelete={() => {
-                    props.deleteH(item._id);
-                  }}
-                  callToggle={() => {
-                    props.handleComplete(item._id);
-                  }}
-                  badge={'In Progress'}
-                />
-              </Else>
-              {/* <If condition={item.complete}>
-              <Button
-                variant='outline-danger'
-                onClick={() => props.deleteH(item._id)}
-                value={item._id}
-              >
-                Delete
-              </Button>
-              <Button
-                variant='outline-secondary'
-                onClick={() => toggle(item._id)}
-                value={item._id}
-              >
-                Edit
-              </Button>{' '}
-              <ListGroup.Item
-                action
-                variant='danger'
+        .map(item => (
+          <>
+            <If condition={item.complete}>
+              <Card
+                color={'success'}
+                asignee={item.assignee}
+                title={item.text}
+                diff={item.difficulty}
                 key={item._id}
-                onClick={e => {
+                callDelete={() => {
+                  props.deleteH(item._id);
+                }}
+                callToggle={() => {
                   props.handleComplete(item._id);
                 }}
-                className={`complete-${item.complete.toString()}`}
-                style={{ textDecoration: 'line-through' }}
-              >
-                {item.text}, 'difficulty:'{item.difficulty}, 'assignee:'
-                {item.assignee}
-              </ListGroup.Item>
-              <If condition={flag}>
-                <Form onSubmit={editor}>
-                  <Form.Label>
-                    <span>Edit Task</span>
-                    <Form.Control type='text' name='text' />
-                  </Form.Label>
-                  <Button variant='outline-secondary' type='submit'>
-                    Submit Edit
-                  </Button>
-                </Form>
-              </If>
+                badge={'Completed'}
+              />
             </If>
-
             <Else condition={item.complete}>
-              <Button
-                variant='outline-danger'
-                onClick={() => props.deleteH(item._id)}
-                value={item._id}
-              >
-                Delete
-              </Button>
-              <Button
-                variant='outline-secondary'
-                onClick={() => toggle(item._id)}
-                value={item._id}
-              >
-                Edit
-              </Button>{' '}
-              <ListGroup.Item
-                action
-                variant='success'
+              <Card
+                color={'danger'}
+                asignee={item.assignee}
+                title={item.text}
+                diff={item.difficulty}
                 key={item._id}
-                onClick={() => props.handleComplete(item._id)}
-                className={`complete-${item.complete.toString()}`}
-              >
-                {`${item.text}, difficulty:${item.difficulty}, assignee:${item.assignee}`}
-              </ListGroup.Item>
-              <If condition={flag}>
-                <Form onSubmit={editor}>
-                  <Form.Label>
-                    <span>Edit Task</span>
-                    <Form.Control type='text' name='text' />
-                  </Form.Label>
-                  <Button variant='outline-secondary' type='submit'>
-                    Submit Edit
-                  </Button>
-                </Form>
-              </If>
-            </Else> */}
-            </>
-          )
-
-          // <li className={`complete-${item.complete.toString()}`} key={item._id}>
-          //   <span onClick={() => props.handleComplete(item._id)}>
-          //     {item.text}
-          //   </span>
-          // </li>
-        )}
+                callDelete={() => {
+                  props.deleteH(item._id);
+                }}
+                callToggle={() => {
+                  props.handleComplete(item._id);
+                }}
+                badge={'In Progress'}
+              />
+            </Else>
+          </>
+        ))}
     </ListGroup>
   );
 };

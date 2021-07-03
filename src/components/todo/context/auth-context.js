@@ -54,6 +54,15 @@ const AuthProvider = props => {
       console.log(error);
     }
   };
+  const validateToken = token => {
+    try {
+      let user = jwt.decode(token);
+      setLoginStatus(!!user, token, user);
+    } catch (error) {
+      setLoginStatus(false, null, {});
+      console.log(`Validation Error: ${error}`);
+    }
+  };
   return <AuthContext.Provider>{props.children}</AuthContext.Provider>;
 };
 

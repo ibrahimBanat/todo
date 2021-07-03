@@ -15,6 +15,7 @@ const AuthProvider = props => {
       let response = await axios({
         method: 'POST',
         url: `${API}/sigin`,
+        body: {},
         headers: {
           mode: 'cors',
           cache: 'no-cache',
@@ -27,6 +28,30 @@ const AuthProvider = props => {
       validateToekn(response.data.token);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const signup = async (username, password, email, role) => {
+    try {
+      const user = {
+        username: username,
+        password: password,
+        email: email,
+        role: role,
+      };
+      let response = await axios({
+        method: 'POST',
+        url: `${API}/signup`,
+        body: { user },
+        headers: {
+          mode: 'cors',
+          cache: 'no-cache',
+          contentType: 'application/json',
+        },
+      });
+      validateToken(response.data.token);
+    } catch (error) {
+      console.log(error);
     }
   };
   return <AuthContext.Provider>{props.children}</AuthContext.Provider>;

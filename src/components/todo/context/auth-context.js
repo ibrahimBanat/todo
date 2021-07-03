@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import cookie from 'react-cookie';
+import cookie from 'react-cookies';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
 
-export const AuthContext = React.useContext();
+export const AuthContext = React.createContext();
 const API = 'https://api-js401.herokuapp.com';
 
 const AuthProvider = props => {
@@ -33,7 +33,7 @@ const AuthProvider = props => {
           password: password,
         },
       });
-      validateToekn(response.data.token);
+      validateToken(response.data.token);
     } catch (error) {
       console.error(error);
     }

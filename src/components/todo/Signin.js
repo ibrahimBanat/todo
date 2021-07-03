@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from './context/auth-context';
-
+const If = props => {
+  return props.condition ? props.children : null;
+};
 const Signin = () => {
   const [userState, setUserState] = useState({
     username: '',

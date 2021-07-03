@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { LoginContext } from './context.js';
+import { AuthContext } from './context/auth-context';
 
 const If = props => {
   return props.condition ? props.children : null;
 };
 
 const SignUp = props => {
-  // static contextType = LoginContext;
-  const context = useContext(LoginContext);
+  const authContext = useContext(AuthContext);
 
   const [state, setState] = useState({
     username: '',
@@ -17,29 +16,25 @@ const SignUp = props => {
   });
 
   const handleChange = e => {
-    console.log(state[`${e.target.name}`]);
-
     const { name, value } = e.target;
-    setState(prevState => ({
-      ...prevState,
+    setState({
+      ...state,
       [name]: value,
-    }));
-
-    console.log(state);
+    });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    context.signup(state.username, state.password, state.email, state.role);
+    authContext.signup(state.username, state.password, state.email, state.role);
   };
 
   return (
     <>
-      <If condition={context.loggedIn}>
+      <If condition={AuthContext.loginStatus}>
         <></>
       </If>
 
-      <If condition={!context.loggedIn}>
+      <If condition={!AuthContext.loginStatus}>
         <form onSubmit={handleSubmit}>
           <input
             required

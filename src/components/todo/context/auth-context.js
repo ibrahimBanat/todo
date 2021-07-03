@@ -10,7 +10,15 @@ const AuthProvider = props => {
   const [loginStatus, setLoginStatus] = useState(false);
   const [userInfo, setUserInfo] = useState({});
 
-  const login = async (username, password) => {
+  const state = {
+    loginStatus,
+    signin,
+    signout,
+    signup,
+    userInfo,
+  };
+
+  const signin = async (username, password) => {
     try {
       let response = await axios({
         method: 'POST',
@@ -57,13 +65,23 @@ const AuthProvider = props => {
   const validateToken = token => {
     try {
       let user = jwt.decode(token);
-      setLoginStatus(!!user, token, user);
+      LoginStatus(!!user, token, user);
     } catch (error) {
-      setLoginStatus(false, null, {});
+      LoginStatus(false, null, {});
       console.log(`Validation Error: ${error}`);
     }
   };
-  return <AuthContext.Provider>{props.children}</AuthContext.Provider>;
+  const signout = () => {
+    LoginStatus(false, null, {});
+  };
+  const LoginStatus = (loginStatus, token, user) => {
+    cookie.save('auth', token);
+    setLoginStatus(loginStatus);
+    setUserInfo(user);
+  };
+  return (
+    <AuthContext.Provider value={state}>{props.children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

@@ -10,14 +10,6 @@ const AuthProvider = props => {
   const [loginStatus, setLoginStatus] = useState(false);
   const [userInfo, setUserInfo] = useState({});
 
-  const state = {
-    loginStatus,
-    signin,
-    signout,
-    signup,
-    userInfo,
-  };
-
   const signin = async (username, password) => {
     try {
       let response = await axios({
@@ -78,6 +70,13 @@ const AuthProvider = props => {
     cookie.save('auth', token);
     setLoginStatus(loginStatus);
     setUserInfo(user);
+  };
+  const state = {
+    loginStatus,
+    signin,
+    signout,
+    signup,
+    userInfo,
   };
   return (
     <AuthContext.Provider value={state}>{props.children}</AuthContext.Provider>

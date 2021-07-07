@@ -9,7 +9,8 @@ const Signin = () => {
     password: '',
   });
 
-  const authContext = useContext(AuthContext);
+  const context = useContext(AuthContext);
+  console.log(context);
 
   const handleChange = event => {
     let value = event.target.value;
@@ -21,15 +22,15 @@ const Signin = () => {
   };
   const handleSubmit = event => {
     event.preventDefault();
-    authContext.signin(userState.username, userState.password);
+    context.signin(userState.username, userState.password);
   };
 
   return (
     <React.Fragment>
-      <If condition={authContext.loginStatus}>
-        <button onClick={authContext.signout}>Siginout</button>
+      <If condition={context.loginStatus}>
+        <button onClick={context.signout}>Siginout</button>
       </If>
-      <If condition={!authContext.loginStatus}>
+      <If condition={!context.loginStatus}>
         <form onSubmit={handleSubmit}>
           <input
             required
